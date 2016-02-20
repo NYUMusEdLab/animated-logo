@@ -1,0 +1,20 @@
+{
+  "name": "animated-logos",
+  "version": "0.0.1",
+  "description": "animated logos with sound",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jason sigal",
+  "license": "MIT",
+  "dependencies": {
+    "snapsvg": "^0.4.0",
+    "tone": "^0.6.1",
+    "webpack": "^1.12.13"
+  },
+  "devDependencies": {
+    "imports-loader": "^0.6.5",
+    "legacy-loader": "0.0.2"
+  }
+}
