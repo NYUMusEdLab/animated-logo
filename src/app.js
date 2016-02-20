@@ -63,11 +63,15 @@ AL.Letter = function(options, instance) {
 	 */
 	this.keys = options.keys || [];
 	this.sounds = options.sounds || [];
-	this.frames = options.sounds || [];
 	this.svgPath = options.svgPath;
 	this.id = options.id;
-	console.log(this.id);
 	this.instance = instance;
+
+	// Snap SVG elements, set by _parseFragment
+	this.frames = [];
+
+	// iterate thru the frames array
+	this.framePos = 0;
 
 	// these are also the max width/height for scaling
 	this.width = options.width;
@@ -88,7 +92,6 @@ AL.Letter = function(options, instance) {
 
 
 AL.Letter.prototype.getSpritesByID = function(id) {
-	console.log(this.instance);
 	var frag = this.instance.spritesheet.node.getElementById(id);
 	var clonedFrag = Snap(frag).clone();
 	this._parseFragment( clonedFrag );
@@ -125,7 +128,15 @@ AL.Letter.prototype._parseFragment = function(f) {
 	self.origW = viewBox.w || viewBox.width;
 	self.origH = viewBox.h || viewBox.height;
 
-	self.cnv.add(Snap(self._gArray[1]));
+	self.cnv.add(Snap(self._gArray[0].clone()));
+	self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
+
+	self.frames = self._gArray.forEach(function(frame) {
+		var s = Snap(frame).clone();
+		s.node.setAttribute('style', 'display:none;');
+		return s;
+	});
+
 
 	if (self.width && self.height) {
 		self.resize();
@@ -143,9 +154,9 @@ AL.Letter.prototype.animateElt = function() {
  *  Resize to a new width and height
  *  
  *  @method  resize
- *  @param  {Number} [_w] optional width in px
- *  @param  {Number} [_h] 	optional height in px
- *  @param  {Number} [_dur] 	optional duration in ms
+ *  @param  {Number} [_w] 		Width in px (optional)
+ *  @param  {Number} [_h] 		Height in px (optional)
+ *  @param  {Number} [_dur] 	Duration in ms (optional)
  *  
  */
 AL.Letter.prototype.resize = function(_w, _h, _dur) {
@@ -154,23 +165,84 @@ AL.Letter.prototype.resize = function(_w, _h, _dur) {
 	var h = _h || self.height;
 	var dur = _dur || 0;
 
+	var percentW = w / self.origW;
+	var percentH = h / self.origH;
+	self.rescale(percentW, percentH, dur);
+};
+
+/**
+ *  Resize by percentage of original SVG, similar to resize().
+ *
+ *  NOTE: If only 1 or 2 arguments are provided,
+ *  it will scale both w and h by the first argument,
+ *  and the last argument is assumed to be duration.
+ *  
+ *  @param  {Number} _percentW Number where 100% = 1.0, 0% = 0
+ *  @param  {Number} _percentH Number where 100% = 1.0, 0% = 0
+ *  @param  {Number} _dur      Duration in ms (optional)
+ *  @return {[type]}           [description]
+ */
+AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur) {
+	var self = this;
 	var myMatrix = new Snap.Matrix();
 
-	self.scale = {
-		'w': w / self.origW,
-		'h': h / self.origH
+	// if only two arguments are provided,
+	// assume it's a single percentage for both w and h
+	// and that second argument is _dur
+	if (arguments.length === 2) {
+		_dur = _percentH;
 	}
 
-	myMatrix.translate ( (self.width - w)/2, (self.height - h)/2 );
+	// second argument is optional
+	if (arguments.length < 3) {
+		_percentH = _percentW;
+	}
+
+	self.scale = {
+		'w': _percentW,
+		'h': _percentH
+	}
+
+	var dur = _dur || 0;
+	var transW = (self.width - _percentW*self.origW)/2;
+	var transH = (self.height - _percentH*self.origH)/2;
+	myMatrix.translate (transW, transH);
 	myMatrix.scale(self.scale.w, self.scale.h);
 
-	self._gArray.animate({ transform: myMatrix }, dur, mina.bounce);
+	this.cnv.animate({ transform: myMatrix }, dur, mina.bounce);
+};
 
-}
+AL.Letter.prototype.animate = function(_duration) {
+	var duration = _duration || 500;
+	this.framePos++;
+	var nextFrag = this.frames[ this.framePos % this.frames.length].children();
 
+	var i = 0;
+	this.cnv.children().forEach(function( elt ) {
+		var props = nextFrag[i].attr();
+		var className = props.class;
+		delete props.class;
+		delete props.width;
+		elt.stop();
+		elt.animate(props, duration, mina.bounce);
+		i++;
+	});
+	console.log(this.framePos);
+	// var closedShapes = sprites[shifts%sprites.length].children();
+
+};
+
+/**
+ *  Constructor function
+ *
+ *  @method  createLetter
+ *  @param  {Object} options Options object
+ *  @return {AL.Letter}
+ */
 AL.prototype.createLetter = function(options) {
 	var letter = new AL.Letter(options, this);
 	this.letters.push(letter);
+	return letter;
 }
 
 
