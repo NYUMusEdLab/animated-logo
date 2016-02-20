@@ -2,6 +2,8 @@
 <html>
 
 	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no">
+
 		<link rel="stylesheet" type="text/css" href="../../dist/al.css">
 		<script type="text/javascript" src="../../dist/al.js"></script>
 	</head>
@@ -12,14 +14,19 @@
  -->
 	<script type="text/javascript">
 
-		var alogo = new AL('../img/images.svg', spritesReady);
+		var alogo = new AL('../img/images.svg', spritesReady, soundsReady);
 
 		var options = {
 			keys: 'A',
 			sounds: '../audio/banana-shaker_test_01.mp3',
 			width: 400,
 			height:400,
-			id: 'science-s'
+			id: 'science-s',
+			animEnv : {
+				attack: 30,
+				sustain: 100,
+				release: 500
+			}
 		}
 
 		// var options2 = {
@@ -33,6 +40,10 @@
 		function spritesReady() {
 			var s = alogo.createLetter(options);
 			// var t = alogo.createLetter(options2);
+		}
+
+		function soundsReady() {
+			console.log('sounds r ready!');
 		}
 
 	</script>

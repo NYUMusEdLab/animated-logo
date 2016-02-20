@@ -60,7 +60,7 @@
 	 *  	
 	 */
 
-	var AL = function(svgPath, callback) {
+	var AL = function(svgPath, onloadSprites, onloadSounds) {
 
 		/**
 		 *  Array of all letters added to
@@ -78,12 +78,22 @@
 		 */
 		this.spritesheet = null;
 
-		this.loadSpritesheet(svgPath, callback);
+		// attack, sustain, release times in ms
+
+		// load spritesheet and do callback, i.e. create letters
+		this._loadSpritesheet(svgPath, onloadSprites);
+
+		// callback when sounds load
+		Tone.Buffer.on('load', function() {
+			if (onloadSounds) {
+				onloadSounds();
+			}
+		});
 
 	};
 
 
-	AL.prototype.loadSpritesheet = function(svgPath, callback) {
+	AL.prototype._loadSpritesheet = function(svgPath, callback) {
 		var self = this;
 
 		Snap.load(svgPath, function (f) {
@@ -108,7 +118,7 @@
 		 *  @type Array of Strings
 		 */
 		this.keys = options.keys || [];
-		this.sounds = options.sounds || [];
+		this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 		this.svgPath = options.svgPath;
 		this.id = options.id;
 		this.instance = instance;
@@ -119,6 +129,20 @@
 		// iterate thru the frames array
 		this.framePos = 0;
 
+		/**
+		 *  Options object can include an animation
+		 *  envelope that specifies custom transitions
+		 *
+		 *  @name  animEnv
+		 *  @type {Object}
+		 */
+		this.animEnv = options.animEnv || {
+			attack: undefined,
+			sustain: undefined,
+			release: undefined
+		};
+
+		// width/height of the entire SVG containing area
 		// these are also the max width/height for scaling
 		this.width = options.width;
 		this.height = options.height;
@@ -134,8 +158,9 @@
 		} else {
 			this.getSpritesByID(this.id);
 		}
-	}
 
+		this._initEventListeners();
+	}
 
 	AL.Letter.prototype.getSpritesByID = function(id) {
 		var frag = this.instance.spritesheet.node.getElementById(id);
@@ -171,8 +196,8 @@
 
 		var svgWrapper = Snap(f.node);
 		var viewBox = svgWrapper.attr('viewBox');
-		self.origW = viewBox.w || viewBox.width;
-		self.origH = viewBox.h || viewBox.height;
+		self.svgOrigW = viewBox.w || viewBox.width;
+		self.svgOrigH = viewBox.h || viewBox.height;
 
 		self.cnv.add(Snap(self._gArray[0].clone()));
 		self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
@@ -190,12 +215,6 @@
 	}
 
 
-	AL.Letter.prototype.animateElt = function() {
-
-	}
-
-
-
 	/**
 	 *  Resize to a new width and height
 	 *  
@@ -211,9 +230,9 @@
 		var h = _h || self.height;
 		var dur = _dur || 0;
 
-		var percentW = w / self.origW;
-		var percentH = h / self.origH;
-		self.rescale(percentW, percentH, dur);
+		var percentW = w / self.svgOrigW;
+		var percentH = h / self.svgOrigH;
+		self._applyResize(percentW, percentH, dur);
 	};
 
 	/**
@@ -230,7 +249,6 @@
 	 */
 	AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur) {
 		var self = this;
-		var myMatrix = new Snap.Matrix();
 
 		// if only two arguments are provided,
 		// assume it's a single percentage for both w and h
@@ -244,20 +262,56 @@
 			_percentH = _percentW;
 		}
 
+		var scaleW = _percentW * (self.width / self.svgOrigW);
+		var scaleH = _percentH * (self.height / self.svgOrigH);
+		var dur = _dur || 0;
+		// console.log(scaleW);
+		self._applyResize(scaleW, scaleH, dur);
+	};
+
+
+	AL.Letter.prototype._applyResize = function(percentW, percentH, dur) {
+		var self = this;
+		var myMatrix = new Snap.Matrix();
+
 		self.scale = {
-			'w': _percentW,
-			'h': _percentH
+			'w': percentW,
+			'h': percentH
 		}
 
-		var dur = _dur || 0;
-		var transW = (self.width - _percentW*self.origW)/2;
-		var transH = (self.height - _percentH*self.origH)/2;
+		var transW = (self.width - percentW*self.svgOrigW)/2;
+		var transH = (self.height - percentH*self.svgOrigH)/2;
 		myMatrix.translate (transW, transH);
 		myMatrix.scale(self.scale.w, self.scale.h);
 
 		this.cnv.animate({ transform: myMatrix }, dur, mina.bounce);
+	}
+
+	/**
+	 *  Trigger animation
+	 *  @return {[type]} [description]
+	 */
+	AL.Letter.prototype.trigger = function(e, _time1, _hold, _time2) {
+		var self = this;
+
+		var time1 = _time1 || this.animEnv.attack || 30;
+		var delay = _hold || this.animEnv.sustain || 100;
+		var time2 = _time2 || this.animEnv.release || 500;
+
+		this.playSound();
+		this.animate(time1);
+		this._scheduledAnim = setTimeout(
+			function() {
+				self.animate(time2)
+			}, delay, false);
 	};
 
+	/**
+	 *  do next animation
+	 *
+	 *  @method  animate
+	 *  @param  {Number} _duration Duration in ms
+	 */
 	AL.Letter.prototype.animate = function(_duration) {
 		var duration = _duration || 500;
 		this.framePos++;
@@ -273,9 +327,39 @@
 			elt.animate(props, duration, mina.bounce);
 			i++;
 		});
-		console.log(this.framePos);
 		// var closedShapes = sprites[shifts%sprites.length].children();
 
+	};
+
+	AL.Letter.prototype.playSound = function() {
+		this.sound.triggerAttackRelease();
+	};
+
+	AL.Letter.prototype._loadSound = function(sndPath) {
+		this.sound = new Tone.Sampler(sndPath).toMaster();
+	};
+
+
+	AL.Letter.prototype._initEventListeners = function() {
+		var self = this;
+		var elt = document.getElementById(this.id);
+
+		elt.addEventListener('mousedown', function(e) {
+			self.trigger();
+		});
+
+		elt.addEventListener('touchstart', function(e) {
+			self.trigger();
+			e.preventDefault();
+		});
+
+		elt.addEventListener('mouseover', function(e) {
+			self.rescale(1.1, 300);
+		});
+
+		elt.addEventListener('mouseleave', function(e) {
+			self.rescale(1, 500);
+		});
 	};
 
 	/**
@@ -19986,7 +20070,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 

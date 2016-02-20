@@ -2,9 +2,9 @@
 
 	<object id="science-s" viewBox="0 0 170.99 187.76">
 
-		<g id="shape-closed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170.99 187.76"><defs><style>.cls-1{fill:#fdbc2e;}.cls-2{fill:#dba02a;}.cls-3{fill:#b7852e;}.cls-4{fill:#6e7d2a;}</style></defs><title>msm_try2</title><path class="cls-1" d="M16.85,130.18A69.89,69.89,0,1,0,148.18,82.3Z"/><ellipse class="cls-2" cx="82.85" cy="106.27" rx="69.98" ry="15.98" transform="translate(-29.68 32.15) rotate(-18.69)"/><ellipse class="cls-3" cx="82.85" cy="106.27" rx="28.88" ry="6.6" transform="translate(-29.68 32.15) rotate(-18.69)"/><path class="cls-1" d="M16.85,130.18a69.89,69.89,0,0,0,89.6,41.73c36.27-13.22,55.72-52.23,42.5-88.5Z"/><path class="cls-4" d="M148.72,82.76A69.89,69.89,0,1,0,17.1,129.84Z"/></g>
-
 		<g id="shape-open" viewBox="0 0 170.99 187.76" xmlns="http://www.w3.org/2000/svg" ><defs><style>.cls-1{fill:#fdbc2e;}.cls-2{fill:#dba02a;}.cls-3{fill:#b7852e;}.cls-4{fill:#6e7d2a;}</style></defs><title>msm_try2</title><path class="cls-1" d="M16.85,130.18A69.89,69.89,0,1,0,148.18,82.3Z"/><ellipse class="cls-2" cx="82.85" cy="106.27" rx="69.98" ry="15.98" transform="translate(-29.68 32.15) rotate(-18.69)"/><ellipse class="cls-3" cx="82.85" cy="106.27" rx="28.88" ry="6.6" transform="translate(-29.68 32.15) rotate(-18.69)"/><path class="cls-1" d="M16.85,130.18a69.89,69.89,0,0,0,89.6,41.73c36.27-13.22,55.72-52.23,42.5-88.5Z"/><path class="cls-4" d="M149.77,62.29A69.89,69.89,0,1,0,18.45,110.17Z"/></g>
+
+		<g id="shape-closed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170.99 187.76"><defs><style>.cls-1{fill:#fdbc2e;}.cls-2{fill:#dba02a;}.cls-3{fill:#b7852e;}.cls-4{fill:#6e7d2a;}</style></defs><title>msm_try2</title><path class="cls-1" d="M16.85,130.18A69.89,69.89,0,1,0,148.18,82.3Z"/><ellipse class="cls-2" cx="82.85" cy="106.27" rx="69.98" ry="15.98" transform="translate(-29.68 32.15) rotate(-18.69)"/><ellipse class="cls-3" cx="82.85" cy="106.27" rx="28.88" ry="6.6" transform="translate(-29.68 32.15) rotate(-18.69)"/><path class="cls-1" d="M16.85,130.18a69.89,69.89,0,0,0,89.6,41.73c36.27-13.22,55.72-52.23,42.5-88.5Z"/><path class="cls-4" d="M148.72,82.76A69.89,69.89,0,1,0,17.1,129.84Z"/></g>
 	</object>
 
 	<object id="science-s2" viewBox="0 0 170.99 187.76">
