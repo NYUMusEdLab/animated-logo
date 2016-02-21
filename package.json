@@ -9,7 +9,7 @@
   "author": "jason sigal",
   "license": "MIT",
   "dependencies": {
-    "snapsvg": "^0.4.0",
+    "snapsvg":"git+https://github.com/therewasaguy/Snap.svg.git#memory-leak-fix",
     "tone": "^0.6.1",
     "webpack": "^1.12.13"
   },

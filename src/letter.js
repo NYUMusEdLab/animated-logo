@@ -93,8 +93,13 @@ AL.Letter.prototype._parseFragment = function(f) {
 
 	var svgWrapper = Snap(f.node);
 	var viewBox = svgWrapper.attr('viewBox');
-	self.svgOrigW = viewBox.w || viewBox.width;
-	self.svgOrigH = viewBox.h || viewBox.height;
+
+	if (viewBox) {
+		self.svgOrigW = viewBox.w || viewBox.width;
+		self.svgOrigH = viewBox.h || viewBox.height;
+	} else {
+		console.log('no viewbox');
+	}
 
 	self.cnv.add(Snap(self._gArray[0].clone()));
 	self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
@@ -219,8 +224,10 @@ AL.Letter.prototype.animate = function(_duration) {
 		var props = nextFrag[i].attr();
 		var className = props.class;
 		delete props.class;
-		delete props.width;
+		// delete props.width;
 		elt.stop();
+		console.log(props);
+		console.log(elt);
 		elt.animate(props, duration, mina.bounce);
 		i++;
 	});

@@ -42,6 +42,12 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 
 	Snap.load(svgPath, function (f) {
 		self.spritesheet = f;
+		self.cnv = Snap(f.node);
+
+		// get inline style from spritesheet
+		var styleElt = f.node.getElementsByTagName('style')[0];
+		document.body.appendChild(styleElt);
+
 		callback();
 	});
 };
