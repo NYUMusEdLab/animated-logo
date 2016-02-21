@@ -89,6 +89,7 @@ AL.Letter.prototype._parseFragment = function(f) {
 	self.cnv = Snap(self.width, self.height);
 	self.cnv.node.setAttribute('id', self.id);
 
+	// self._gArray = f.selectAll('g');
 	self._gArray = f.selectAll('g');
 
 	var svgWrapper = Snap(f.node);
@@ -216,21 +217,22 @@ AL.Letter.prototype.trigger = function(e, _time1, _hold, _time2) {
  */
 AL.Letter.prototype.animate = function(_duration) {
 	var duration = _duration || 500;
-	this.framePos++;
 	var nextFrag = this.frames[ this.framePos % this.frames.length].children();
 
 	var i = 0;
 	this.cnv.children().forEach(function( elt ) {
 		var props = nextFrag[i].attr();
-		var className = props.class;
+
+		// dont override these attribtues
+		delete props.style;
 		delete props.class;
-		// delete props.width;
+
 		elt.stop();
-		console.log(props);
-		console.log(elt);
 		elt.animate(props, duration, mina.bounce);
 		i++;
 	});
+	this.framePos++;
+
 	// var closedShapes = sprites[shifts%sprites.length].children();
 
 };

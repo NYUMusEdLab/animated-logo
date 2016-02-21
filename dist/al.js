@@ -19754,7 +19754,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 
@@ -28069,8 +28069,8 @@
 			self.cnv = Snap(f.node);
 
 			// get inline style from spritesheet
-			var styleElt = f.node.getElementsByTagName('style')[0];
-			document.body.appendChild(styleElt);
+			// var styleElt = f.node.getElementsByTagName('style')[0];
+			// document.body.appendChild(styleElt);
 
 			callback();
 		});
@@ -28173,6 +28173,7 @@
 		self.cnv = Snap(self.width, self.height);
 		self.cnv.node.setAttribute('id', self.id);
 
+		// self._gArray = f.selectAll('g');
 		self._gArray = f.selectAll('g');
 
 		var svgWrapper = Snap(f.node);
@@ -28300,21 +28301,22 @@
 	 */
 	AL.Letter.prototype.animate = function(_duration) {
 		var duration = _duration || 500;
-		this.framePos++;
 		var nextFrag = this.frames[ this.framePos % this.frames.length].children();
 
 		var i = 0;
 		this.cnv.children().forEach(function( elt ) {
 			var props = nextFrag[i].attr();
-			var className = props.class;
+
+			// dont override these attribtues
+			delete props.style;
 			delete props.class;
-			// delete props.width;
+
 			elt.stop();
-			console.log(props);
-			console.log(elt);
 			elt.animate(props, duration, mina.bounce);
 			i++;
 		});
+		this.framePos++;
+
 		// var closedShapes = sprites[shifts%sprites.length].children();
 
 	};

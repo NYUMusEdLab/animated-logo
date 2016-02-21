@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "imports-loader": "^0.6.5",
-    "legacy-loader": "0.0.2"
+    "grunt-svgstore": "^0.5.0"
   }
 }

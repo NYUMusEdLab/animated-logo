@@ -1,0 +1,11 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 164.67 162.42">
+  <title>test</title>
+  <g id="math-t-anim2">
+    <rect x="59.77" y="22.9" width="49.92" height="139.52" style="fill: #3c7457"/>
+    <rect x="14.97" y="112.51" width="139.52" height="49.91" style="fill: #fb951f"/>
+  </g>
+  <g id="math-t-anim1">
+    <rect x="59.77" y="22.9" width="49.92" height="139.52" style="fill: #3c7457"/>
+    <rect x="14.97" y="3.07" width="139.52" height="49.91" style="fill: #fb951f"/>
+  </g>
+</svg>

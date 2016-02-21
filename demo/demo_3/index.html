@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no">
+
+		<link rel="stylesheet" type="text/css" href="../../dist/al.css">
+		<script type="text/javascript" src="../../dist/al.js"></script>
+	</head>
+	<body>
+
+	<script type="text/javascript">
+
+		// var alogo = new AL('../img/spritesheet.svg', spritesReady, soundsReady);
+
+		var alogo = new AL('../img/svg-defs.svg', spritesReady, soundsReady);
+
+
+		var options = {
+			keys: 'A',
+			sounds: '../audio/banana-shaker_test_01.mp3',
+			width: 400,
+			height:400,
+			id: 'shape-test-01',
+			animEnv : {
+				attack: 30,
+				sustain: 100,
+				release: 500
+			}
+		}
+
+		var options2 = {
+			keys: 'A',
+			sounds: '../audio/banana-shaker_test_01.mp3',
+			width: 400,
+			height:400,
+			id: 'shape-test-02',
+			animEnv : {
+				attack: 30,
+				sustain: 100,
+				release: 500
+			}
+		}
+
+		function spritesReady() {
+			var s = alogo.createLetter(options);
+			var t = alogo.createLetter(options2);
+		}
+
+		function soundsReady() {
+			console.log('sounds r ready!');
+		}
+
+	</script>
+
+	</body>
+
+</html>
