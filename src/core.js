@@ -4,7 +4,10 @@
  *  	
  */
 
-var AL = function(svgPath, onloadSprites, onloadSounds) {
+var AL = function(svgPath, containerID, onloadSprites, onloadSounds) {
+
+
+	this.container = document.getElementById(containerID);
 
 	/**
 	 *  Array of all letters added to
@@ -21,8 +24,6 @@ var AL = function(svgPath, onloadSprites, onloadSounds) {
 	 *  @type {[type]}
 	 */
 	this.spritesheet = null;
-
-	// attack, sustain, release times in ms
 
 	// load spritesheet and do callback, i.e. create letters
 	this._loadSpritesheet(svgPath, onloadSprites);
@@ -43,6 +44,8 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 	Snap.load(svgPath, function (f) {
 		self.spritesheet = f;
 		self.cnv = Snap(f.node);
+		// self.cnv.appendTo(self.container);
+		// self.container.setAttribute('cz-shortcut-listen', true);
 
 		// get inline style from spritesheet
 		// var styleElt = f.node.getElementsByTagName('style')[0];

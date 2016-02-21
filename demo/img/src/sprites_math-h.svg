@@ -1,0 +1,31 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201.23 180.67">
+  <title>sprites</title>
+  <g id="math-h-anim1">
+    <rect x="75.85" y="67.14" width="159.29" height="49.92" transform="translate(31.12 223.22) rotate(-77.15)" style="fill: #60a9c9"/>
+    <rect x="86" y="76.89" width="138.22" height="33.78" transform="translate(29.19 224.16) rotate(-77.15)" style="fill: #9fcddd"/>
+    <path d="M160.87,59.92a6.44,6.44,0,1,0-3.93-2.83A6.22,6.22,0,0,0,160.87,59.92Z" style="fill: #60a9c9"/>
+    <path d="M148,116.43a6.44,6.44,0,1,0-3.93-2.83A6.23,6.23,0,0,0,148,116.43Z" style="fill: #60a9c9"/>
+    <path d="M154.43,88.17a6.44,6.44,0,1,0-3.93-2.83A6.22,6.22,0,0,0,154.43,88.17Z" style="fill: #60a9c9"/>
+    <path d="M141.58,144.52a6.44,6.44,0,1,0-3.93-2.83A6.22,6.22,0,0,0,141.58,144.52Z" style="fill: #60a9c9"/>
+    <rect x="4" y="4.89" width="49.92" height="159.29" style="fill: #96af85"/>
+    <path d="M12.07,17.15H45.85V39.27H29A6.34,6.34,0,0,0,29,52H45.85V62.42H29a6.35,6.35,0,0,0,0,12.69H45.85V97.23H29a6.34,6.34,0,0,0,0,12.69H45.85v10.46H29a6.34,6.34,0,0,0,0,12.69H45.85v22.12H12.07v-138Z" style="fill: #ceddc5"/>
+    <polyline points="66.73 38.96 66.73 38.84 66.73 116.43" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="82.54 38.58 82.55 38.46 80.76 116.72" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="104.2 39.83 104.22 39.71 92.07 117.07" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="127.52 41.77 127.56 41.65 105.21 118.47" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+  </g>
+  <g id="math-h-anim2">
+    <rect x="55.85" y="60.14" width="159.29" height="49.92" transform="translate(49.78 220.21) rotate(-89.74)" style="fill: #60a9c9"/>
+    <rect x="66.38" y="69.93" width="138.22" height="33.78" transform="translate(48.06 221.92) rotate(-89.74)" style="fill: #9fcddd"/>
+    <path d="M133.73,52.52a6.44,6.44,0,1,0-4.45-1.91A6.22,6.22,0,0,0,133.73,52.52Z" style="fill: #60a9c9"/>
+    <path d="M136.47,110.48a6.44,6.44,0,1,0-4.45-1.91A6.23,6.23,0,0,0,136.47,110.48Z" style="fill: #60a9c9"/>
+    <path d="M133.6,81.5a6.44,6.44,0,1,0-4.45-1.91A6.22,6.22,0,0,0,133.6,81.5Z" style="fill: #60a9c9"/>
+    <path d="M136.34,139.29a6.44,6.44,0,1,0-4.45-1.91A6.22,6.22,0,0,0,136.34,139.29Z" style="fill: #60a9c9"/>
+    <rect x="9" y="4.89" width="49.92" height="159.29" style="fill: #96af85"/>
+    <path d="M17.07,17.15H50.85V39.27H34A6.34,6.34,0,0,0,34,52H50.85V62.42H34a6.35,6.35,0,0,0,0,12.69H50.85V97.23H34a6.34,6.34,0,0,0,0,12.69H50.85v10.46H34a6.34,6.34,0,0,0,0,12.69H50.85v22.12H17.07v-138Z" style="fill: #ceddc5"/>
+    <polyline points="66.03 38.97 66.02 38.84 67.44 116.42" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="78.7 38.57 78.7 38.45 78.61 116.73" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="90.11 38.35 90.11 38.23 90.18 116.54" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+    <polyline points="102.89 39.18 102.89 39.06 101.56 116.57" style="fill: none;stroke: #403f4f;stroke-linecap: round;stroke-linejoin: round;stroke-width: 7px"/>
+  </g>
+</svg>

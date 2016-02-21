@@ -19754,7 +19754,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 
@@ -28028,7 +28028,10 @@
 	 *  	
 	 */
 
-	var AL = function(svgPath, onloadSprites, onloadSounds) {
+	var AL = function(svgPath, containerID, onloadSprites, onloadSounds) {
+
+
+		this.container = document.getElementById(containerID);
 
 		/**
 		 *  Array of all letters added to
@@ -28045,8 +28048,6 @@
 		 *  @type {[type]}
 		 */
 		this.spritesheet = null;
-
-		// attack, sustain, release times in ms
 
 		// load spritesheet and do callback, i.e. create letters
 		this._loadSpritesheet(svgPath, onloadSprites);
@@ -28067,6 +28068,8 @@
 		Snap.load(svgPath, function (f) {
 			self.spritesheet = f;
 			self.cnv = Snap(f.node);
+			// self.cnv.appendTo(self.container);
+			// self.container.setAttribute('cz-shortcut-listen', true);
 
 			// get inline style from spritesheet
 			// var styleElt = f.node.getElementsByTagName('style')[0];
@@ -28101,6 +28104,11 @@
 		this.keys = options.keys || [];
 		this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 		this.svgPath = options.svgPath;
+
+		/**
+		 *  id of the symbol, which will be "shape-<name_of_orig_export>_<illustrator_label_name>"
+		 *  @type {[type]}
+		 */
 		this.id = options.id;
 		this.instance = instance;
 
@@ -28173,7 +28181,9 @@
 		self.cnv = Snap(self.width, self.height);
 		self.cnv.node.setAttribute('id', self.id);
 
-		// self._gArray = f.selectAll('g');
+		// append to the AL instance's container html element
+		self.cnv.appendTo(self.instance.container);
+
 		self._gArray = f.selectAll('g');
 
 		var svgWrapper = Snap(f.node);
@@ -28220,6 +28230,7 @@
 		var percentW = w / self.svgOrigW;
 		var percentH = h / self.svgOrigH;
 		self._applyResize(percentW, percentH, dur);
+		self.rescale(0.9);
 	};
 
 	/**
@@ -28301,21 +28312,24 @@
 	 */
 	AL.Letter.prototype.animate = function(_duration) {
 		var duration = _duration || 500;
+		this.framePos++;
 		var nextFrag = this.frames[ this.framePos % this.frames.length].children();
 
 		var i = 0;
 		this.cnv.children().forEach(function( elt ) {
-			var props = nextFrag[i].attr();
+			try {
+				var props = nextFrag[i].attr();
+				// dont override these attribtues
+				delete props.style;
+				delete props.class;
 
-			// dont override these attribtues
-			delete props.style;
-			delete props.class;
-
-			elt.stop();
-			elt.animate(props, duration, mina.bounce);
+				elt.stop();
+				elt.animate(props, duration, mina.bounce);
+			} catch(e) {
+				return;
+			}
 			i++;
 		});
-		this.framePos++;
 
 		// var closedShapes = sprites[shifts%sprites.length].children();
 
@@ -28344,11 +28358,11 @@
 		});
 
 		elt.addEventListener('mouseover', function(e) {
-			self.rescale(1.1, 300);
+			self.rescale(1, 300);
 		});
 
 		elt.addEventListener('mouseleave', function(e) {
-			self.rescale(1, 500);
+			self.rescale(0.9, 500);
 		});
 	};
 

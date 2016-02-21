@@ -17,6 +17,11 @@ AL.Letter = function(options, instance) {
 	this.keys = options.keys || [];
 	this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 	this.svgPath = options.svgPath;
+
+	/**
+	 *  id of the symbol, which will be "shape-<name_of_orig_export>_<illustrator_label_name>"
+	 *  @type {[type]}
+	 */
 	this.id = options.id;
 	this.instance = instance;
 
@@ -89,7 +94,9 @@ AL.Letter.prototype._parseFragment = function(f) {
 	self.cnv = Snap(self.width, self.height);
 	self.cnv.node.setAttribute('id', self.id);
 
-	// self._gArray = f.selectAll('g');
+	// append to the AL instance's container html element
+	self.cnv.appendTo(self.instance.container);
+
 	self._gArray = f.selectAll('g');
 
 	var svgWrapper = Snap(f.node);
@@ -136,6 +143,7 @@ AL.Letter.prototype.resize = function(_w, _h, _dur) {
 	var percentW = w / self.svgOrigW;
 	var percentH = h / self.svgOrigH;
 	self._applyResize(percentW, percentH, dur);
+	self.rescale(0.9);
 };
 
 /**
@@ -217,21 +225,24 @@ AL.Letter.prototype.trigger = function(e, _time1, _hold, _time2) {
  */
 AL.Letter.prototype.animate = function(_duration) {
 	var duration = _duration || 500;
+	this.framePos++;
 	var nextFrag = this.frames[ this.framePos % this.frames.length].children();
 
 	var i = 0;
 	this.cnv.children().forEach(function( elt ) {
-		var props = nextFrag[i].attr();
+		try {
+			var props = nextFrag[i].attr();
+			// dont override these attribtues
+			delete props.style;
+			delete props.class;
 
-		// dont override these attribtues
-		delete props.style;
-		delete props.class;
-
-		elt.stop();
-		elt.animate(props, duration, mina.bounce);
+			elt.stop();
+			elt.animate(props, duration, mina.bounce);
+		} catch(e) {
+			return;
+		}
 		i++;
 	});
-	this.framePos++;
 
 	// var closedShapes = sprites[shifts%sprites.length].children();
 
@@ -260,11 +271,11 @@ AL.Letter.prototype._initEventListeners = function() {
 	});
 
 	elt.addEventListener('mouseover', function(e) {
-		self.rescale(1.1, 300);
+		self.rescale(1, 300);
 	});
 
 	elt.addEventListener('mouseleave', function(e) {
-		self.rescale(1, 500);
+		self.rescale(0.9, 500);
 	});
 };
 

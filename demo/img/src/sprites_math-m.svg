@@ -1,11 +1,11 @@
 <svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 248 158.86">
-  <title>test</title>
-  <g id="math-m-anim2">
-    <polygon points="127.21 0 44.73 158.86 205.12 158.86 127.21 0" style="fill: #ea455e"/>
-    <polygon points="131.41 0 48.92 158.86 209.31 158.86 131.41 0" style="fill: #403f4f"/>
-  </g>
+  <title>sprites</title>
   <g id="math-m-anim1">
     <polygon points="85.21 0 2.73 158.86 163.12 158.86 85.21 0" style="fill: #ea455e"/>
     <polygon points="165.41 0 82.92 158.86 243.31 158.86 165.41 0" style="fill: #403f4f"/>
+  </g>
+  <g id="math-m-anim2">
+    <polygon points="127.21 0 44.73 158.86 205.12 158.86 127.21 0" style="fill: #ea455e"/>
+    <polygon points="131.41 0 48.92 158.86 209.31 158.86 131.41 0" style="fill: #403f4f"/>
   </g>
 </svg>

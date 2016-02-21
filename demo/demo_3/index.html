@@ -9,42 +9,76 @@
 	</head>
 	<body>
 
+	<div id="animated-logo">
+	</div>
+
 	<script type="text/javascript">
 
 		// var alogo = new AL('../img/spritesheet.svg', spritesReady, soundsReady);
 
-		var alogo = new AL('../img/svg-defs.svg', spritesReady, soundsReady);
+		var containerID = 'animated-logo';
+		var alogo = new AL('../img/svg-defs.svg', containerID, spritesReady, soundsReady);
 
+		var LetterMeta = {
+			math_m : {
+				keys: 'A',
+				sounds: '../audio/banana-shaker_test_01.mp3',
+				width: 400,
+				height:400,
+				id: 'shape-sprites_math-m',
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
 
-		var options = {
-			keys: 'A',
-			sounds: '../audio/banana-shaker_test_01.mp3',
-			width: 400,
-			height:400,
-			id: 'shape-test-01',
-			animEnv : {
-				attack: 30,
-				sustain: 100,
-				release: 500
-			}
-		}
+			math_a : {
+				keys: 'A',
+				sounds: '../audio/banana-shaker_test_01.mp3',
+				width: 400,
+				height:400,
+				id: 'shape-sprites_math-a',
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
 
-		var options2 = {
-			keys: 'A',
-			sounds: '../audio/banana-shaker_test_01.mp3',
-			width: 400,
-			height:400,
-			id: 'shape-test-02',
-			animEnv : {
-				attack: 30,
-				sustain: 100,
-				release: 500
-			}
-		}
+			math_t : {
+				keys: 'A',
+				sounds: '../audio/banana-shaker_test_01.mp3',
+				width: 400,
+				height:400,
+				id: 'shape-sprites_math-t',
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
+
+			math_h : {
+				keys: 'A',
+				sounds: '../audio/banana-shaker_test_01.mp3',
+				width: 400,
+				height:400,
+				id: 'shape-sprites_math-h',
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
+		};
+
 
 		function spritesReady() {
-			var s = alogo.createLetter(options);
-			var t = alogo.createLetter(options2);
+			Object.keys(LetterMeta).forEach(function(key) {
+				var optionsItem = LetterMeta[key];
+				alogo.createLetter(optionsItem);
+			});
 		}
 
 		function soundsReady() {
