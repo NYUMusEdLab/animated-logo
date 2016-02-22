@@ -20,9 +20,14 @@ AL.Letter = function(options, instance) {
 
 	/**
 	 *  id of the symbol, which will be "shape-<name_of_orig_export>_<illustrator_label_name>"
-	 *  @type {[type]}
 	 */
-	this.id = options.id;
+	this.source_id = options.source_id;
+
+	/**
+	 *  unique id of this instance of the element
+	 */
+	this.id = options.destination_id || options.id + String(Math.random() * 10000000000000000);
+
 	this.instance = instance;
 
 	// Snap SVG elements, set by _parseFragment
@@ -55,17 +60,20 @@ AL.Letter = function(options, instance) {
 	// set by width and height
 	this.scale = {w:1, h:1};
 
+	this.x = options.x;
+	this.y = options.y;
+
 	if (this.svgPath) {
 		this.load(this.svgPath);
 	} else {
-		this.getSpritesByID(this.id);
+		this.getSpritesByID(this.source_id);
 	}
 
 	this._initEventListeners();
 }
 
-AL.Letter.prototype.getSpritesByID = function(id) {
-	var frag = this.instance.spritesheet.node.getElementById(id);
+AL.Letter.prototype.getSpritesByID = function(source_id) {
+	var frag = this.instance.spritesheet.node.getElementById(source_id);
 	var clonedFrag = Snap(frag).clone();
 	this._parseFragment( clonedFrag );
 }
@@ -88,14 +96,6 @@ AL.Letter.prototype.load = function(svgPath) {
 
 AL.Letter.prototype._parseFragment = function(f) {
 	var self = this;
-	/**
-	 *  @property {Snap SVG canvas} cnv The snap SVG
-	 */
-	self.cnv = Snap(self.width, self.height);
-	self.cnv.node.setAttribute('id', self.id);
-
-	// append to the AL instance's container html element
-	self.cnv.appendTo(self.instance.container);
 
 	self._gArray = f.selectAll('g');
 
@@ -105,10 +105,23 @@ AL.Letter.prototype._parseFragment = function(f) {
 	if (viewBox) {
 		self.svgOrigW = viewBox.w || viewBox.width;
 		self.svgOrigH = viewBox.h || viewBox.height;
+		if (!self.width) {
+			self.width = self.svgOrigW;
+			self.height = self.svgOrigH;
+		}
 	} else {
 		console.log('no viewbox');
 	}
 
+
+	/**
+	 *  @property {Snap SVG canvas} cnv The snap SVG
+	 */
+	self.cnv = Snap(self.width, self.height);
+	self.cnv.node.setAttribute('id', self.id);
+	self.cnv.node.setAttribute('style', 'left: ' + self.x / self.instance.w * 100 + '% ; top: ' + self.y / self.instance.h * 100 + '%');
+	// append to the AL instance's container html element
+	self.cnv.appendTo(self.instance.container);
 	self.cnv.add(Snap(self._gArray[0].clone()));
 	self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
 

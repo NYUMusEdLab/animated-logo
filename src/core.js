@@ -4,10 +4,13 @@
  *  	
  */
 
-var AL = function(svgPath, containerID, onloadSprites, onloadSounds) {
+var AL = function(svgPath, options, onloadSprites, onloadSounds) {
 
+	this.w = options.w;
+	this.h = options.h;
+	this.id = options.id;
 
-	this.container = document.getElementById(containerID);
+	this.container = document.getElementById(this.id);
 
 	/**
 	 *  Array of all letters added to

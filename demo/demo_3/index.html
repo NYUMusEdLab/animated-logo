@@ -6,6 +6,25 @@
 
 		<link rel="stylesheet" type="text/css" href="../../dist/al.css">
 		<script type="text/javascript" src="../../dist/al.js"></script>
+
+		<style>
+			html,body { height: 100%; margin: 0px; padding: 0px; }
+
+			#animated-logo {
+				position:relative;
+				width:951px;
+				height:574px;
+				display:block;
+				float:left;
+				transform:scale(1);
+			}
+
+			#animated-logo svg {
+				position:absolute;
+			}
+
+		</style>
+
 	</head>
 	<body>
 
@@ -17,41 +36,73 @@
 		// var alogo = new AL('../img/spritesheet.svg', spritesReady, soundsReady);
 
 		var containerID = 'animated-logo';
-		var alogo = new AL('../img/svg-defs.svg', containerID, spritesReady, soundsReady);
+		var logoOptions = {
+			w: 951,
+			h: 574,
+			id: containerID
+		};
+		var alogo = new AL('../img/svg-defs.svg', logoOptions, spritesReady, soundsReady);
+		// alogo.defaultSize(951, 574);
 
 		var LetterMeta = {
 			math_m : {
 				keys: 'A',
-				sounds: '../audio/banana-shaker_test_01.mp3',
-				width: 400,
-				height:400,
-				id: 'shape-sprites_math-m',
+				sounds: '../audio/andreas-klein_jazz-kit-snare-on-brush-rebound_drums_one_shot_.mp3',
+				source_id: 'shape-sprites_math-m',
+				x: 198,
+				y: 15,
 				animEnv : {
-					attack: 30,
-					sustain: 100,
+					attack: 300,
+					sustain: 350,
 					release: 500
 				}
 			},
 
 			math_a : {
 				keys: 'A',
-				sounds: '../audio/banana-shaker_test_01.mp3',
-				width: 400,
-				height:400,
-				id: 'shape-sprites_math-a',
+				sounds: '../audio/elecPiano_03.mp3',
+				source_id: 'shape-sprites_math-a',
+				x: 454,
+				y: 16,
 				animEnv : {
-					attack: 30,
-					sustain: 100,
+					attack: 140,
+					sustain: 300,
 					release: 500
 				}
 			},
 
 			math_t : {
 				keys: 'A',
+				sounds: '../audio/upBass_01.mp3',
+				source_id: 'shape-sprites_math-t',
+				x: 595,
+				y: 14,
+				animEnv : {
+					attack: 240,
+					sustain: 300,
+					release: 700
+				}
+			},
+
+			math_h : {
+				keys: 'A',
+				sounds: '../audio/accordion_02b.mp3',
+				source_id: 'shape-sprites_math-h',
+				x: 794,
+				y: 12,
+				animEnv : {
+					attack: 60,
+					sustain: 120,
+					release: 800
+				}
+			},
+
+			science_s : {
+				keys: 'A',
 				sounds: '../audio/banana-shaker_test_01.mp3',
-				width: 400,
-				height:400,
-				id: 'shape-sprites_math-t',
+				source_id: 'shape-sprites_science-s',
+				x: 24,
+				y: 200,
 				animEnv : {
 					attack: 30,
 					sustain: 100,
@@ -59,15 +110,80 @@
 				}
 			},
 
-			math_h : {
+			science_c1 : {
 				keys: 'A',
-				sounds: '../audio/banana-shaker_test_01.mp3',
-				width: 400,
-				height:400,
-				id: 'shape-sprites_math-h',
+				sounds: '../audio/sinatra_cymbal1.mp3',
+				source_id: 'shape-sprites_science-c1',
+				x: 179,
+				y: 200,
+				animEnv : {
+					attack: 200,
+					sustain: 220,
+					release: 300
+				}
+			},
+
+			science_i : {
+				keys: 'A',
+				sounds: '../audio/acGtrA_03.mp3',
+				source_id: 'shape-sprites_science-i',
+				x: 280,
+				y: 192,
+				animEnv : {
+					attack: 300,
+					sustain: 300,
+					release: 500
+				}
+			},
+
+			science_e1 : {
+				keys: 'A',
+				sounds: '../audio/drums_sinatra1_tambodrum.mp3',
+				source_id: 'shape-sprites_science-e1',
+				x: 384,
+				y: 203,
 				animEnv : {
 					attack: 30,
 					sustain: 100,
+					release: 500
+				}
+			},
+
+			science_n : {
+				keys: 'A',
+				sounds: '../audio/drums_sinatra1_talkdrum.mp3',
+				source_id: 'shape-sprites_science-n',
+				x: 542,
+				y: 203,
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
+
+			science_c2 : {
+				keys: 'A',
+				sounds: '../audio/vox_scratch5b.mp3',
+				source_id: 'shape-sprites_science-c1',
+				x: 677,
+				y: 200,
+				animEnv : {
+					attack: 30,
+					sustain: 100,
+					release: 500
+				}
+			},
+
+			science_e2 : {
+				keys: 'A',
+				sounds: '../audio/kicks_1_01.mp3',
+				source_id: 'shape-sprites_science-e1',
+				x: 786,
+				y: 203,
+				animEnv : {
+					attack: 300,
+					sustain: 300,
 					release: 500
 				}
 			},
@@ -77,6 +193,7 @@
 		function spritesReady() {
 			Object.keys(LetterMeta).forEach(function(key) {
 				var optionsItem = LetterMeta[key];
+				optionsItem.destination_id = key;
 				alogo.createLetter(optionsItem);
 			});
 		}
