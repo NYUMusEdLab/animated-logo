@@ -98,6 +98,7 @@ AL.Letter.prototype._parseFragment = function(f) {
 	var self = this;
 
 	self._gArray = f.selectAll('g');
+	console.log(f.node);
 
 	var svgWrapper = Snap(f.node);
 	var viewBox = svgWrapper.attr('viewBox');
@@ -122,7 +123,16 @@ AL.Letter.prototype._parseFragment = function(f) {
 	self.cnv.node.setAttribute('style', 'left: ' + self.x / self.instance.w * 100 + '% ; top: ' + self.y / self.instance.h * 100 + '%');
 	// append to the AL instance's container html element
 	self.cnv.appendTo(self.instance.container);
-	self.cnv.add(Snap(self._gArray[0].clone()));
+
+	console.log(self._gArray);
+
+	try {
+		self.cnv.add(Snap(self._gArray[0].clone()));
+	} catch(e) {
+		// console.log(e);
+	}
+
+
 	self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
 
 	self.frames = self._gArray.forEach(function(frame) {

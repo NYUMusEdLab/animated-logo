@@ -19754,7 +19754,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 
@@ -28071,7 +28071,7 @@
 		Snap.load(svgPath, function (f) {
 			self.spritesheet = f;
 			self.cnv = Snap(f.node);
-			// self.cnv.appendTo(self.container);
+			self.cnv.appendTo(self.container);
 			// self.container.setAttribute('cz-shortcut-listen', true);
 
 			// get inline style from spritesheet
@@ -28188,6 +28188,7 @@
 		var self = this;
 
 		self._gArray = f.selectAll('g');
+		console.log(f.node);
 
 		var svgWrapper = Snap(f.node);
 		var viewBox = svgWrapper.attr('viewBox');
@@ -28212,7 +28213,16 @@
 		self.cnv.node.setAttribute('style', 'left: ' + self.x / self.instance.w * 100 + '% ; top: ' + self.y / self.instance.h * 100 + '%');
 		// append to the AL instance's container html element
 		self.cnv.appendTo(self.instance.container);
-		self.cnv.add(Snap(self._gArray[0].clone()));
+
+		console.log(self._gArray);
+
+		try {
+			self.cnv.add(Snap(self._gArray[0].clone()));
+		} catch(e) {
+			// console.log(e);
+		}
+
+
 		self.cnv = Snap(this.cnv.node.children[2]); // total hack to find actual elt
 
 		self.frames = self._gArray.forEach(function(frame) {

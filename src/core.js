@@ -47,7 +47,7 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 	Snap.load(svgPath, function (f) {
 		self.spritesheet = f;
 		self.cnv = Snap(f.node);
-		// self.cnv.appendTo(self.container);
+		self.cnv.appendTo(self.container);
 		// self.container.setAttribute('cz-shortcut-listen', true);
 
 		// get inline style from spritesheet
