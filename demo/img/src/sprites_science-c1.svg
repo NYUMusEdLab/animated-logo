@@ -1,0 +1,11 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 163.74">
+  <title>sprites</title>
+  <g id="science-c1-anim1">
+    <path d="M83.16,0a79.21,79.21,0,0,0,.29,158.43Z" style="fill: #476f4d"/>
+    <circle cx="83.46" cy="76.46" r="18.8" style="fill: #fff"/>
+  </g>
+  <g id="science-c1-anim2">
+    <path d="M83.6,158.59A79.21,79.21,0,0,0,83.31.17Z" style="fill: #476f4d"/>
+    <circle cx="83.46" cy="76.46" r="18.8" style="fill: #fff"/>
+  </g>
+</svg>

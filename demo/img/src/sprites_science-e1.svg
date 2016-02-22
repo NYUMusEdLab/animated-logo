@@ -1,0 +1,15 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 114.7 157.41">
+  <title>sprites</title>
+  <g id="science-e1-anim1">
+    <circle cx="83.21" cy="78.71" r="18.8" style="fill: #f73724"/>
+    <rect y="-0.35" width="114.7" height="51.87" style="fill: #c85763"/>
+    <rect width="51.87" height="157.41" style="fill: #c23f3f"/>
+    <rect y="105.54" width="114.7" height="51.87" style="fill: #e2b2b0"/>
+  </g>
+  <g id="science-e1-anim2">
+    <ellipse cx="55.61" cy="78.71" rx="4.2" ry="18.8" style="fill: #f73724"/>
+    <rect y="-0.35" width="114.7" height="51.87" style="fill: #c85763"/>
+    <rect width="51.87" height="157.41" style="fill: #c23f3f"/>
+    <rect y="105.54" width="114.7" height="51.87" style="fill: #e2b2b0"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.74 176">
+  <title>sprites</title>
+  <g id="science-i-anim1">
+    <rect x="13.83" y="7.36" width="49.91" height="158.97" style="fill: #9e9b3c"/>
+    <circle cx="38.78" cy="89.47" r="18.8" style="fill: #c4bf62"/>
+    <path d="M28.15,15.28c0,69.75,0,69.75,0,139.49" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M38.78,15.28c0,69.75,0,69.75,0,139.49" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M49,15.28C49,85,49,85,49,154.77" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+  <g id="science-i-anim2">
+    <rect x="13.83" y="7.36" width="49.91" height="158.97" style="fill: #9e9b3c"/>
+    <circle cx="38.78" cy="89.47" r="18.8" style="fill: #c4bf62"/>
+    <path d="M31.15,15.28c0,13.95-6,13.95-6,27.9s6,13.95,6,27.9-6,13.95-6,27.9,6,14,6,27.9-6,14-6,27.9" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M40.78,15.28c0,11.62-4,11.62-4,23.25s4,11.62,4,23.25-4,11.62-4,23.25,4,11.62,4,23.25-4,11.63-4,23.25,4,11.63,4,23.25" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+    <path d="M51,15.28C51,24,47,24,47,32.71s4,8.72,4,17.43-4,8.72-4,17.44S51,76.3,51,85s-4,8.72-4,17.44,4,8.72,4,17.44-4,8.72-4,17.44,4,8.72,4,17.44" style="fill: none;stroke: #fff;stroke-linecap: round;stroke-linejoin: round;stroke-width: 3px"/>
+  </g>
+</svg>

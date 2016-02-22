@@ -1,0 +1,11 @@
+<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108.58 159.59">
+  <title>sprites</title>
+  <g id="science-n-anim1">
+    <polygon points="0 5.48 1.3 159.59 100.28 159.59 0 5.48" style="fill: #266187"/>
+    <polygon points="108.58 154.11 107.27 0 8.29 0 108.58 154.11" style="fill: #4096c7"/>
+  </g>
+  <g id="science-n-anim2">
+    <polygon points="4 2.48 5.3 156.59 104.28 156.59 4 2.48" style="fill: #266187"/>
+    <polygon points="104.58 157.11 103.27 3 4.29 3 104.58 157.11" style="fill: #4096c7"/>
+  </g>
+</svg>
