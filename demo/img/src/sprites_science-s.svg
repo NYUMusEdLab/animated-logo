@@ -1,15 +1,15 @@
-<svg id="all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.67 167.33">
+<svg id="individual-letters-for-animation-and-export" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 146.67 167.33">
   <title>sprites</title>
   <g id="science-s-anim1">
     <path d="M7.3,117.46A69.89,69.89,0,1,0,138.63,69.58Z" style="fill: #fdbc2e"/>
-    <ellipse cx="73.3" cy="93.54" rx="69.98" ry="15.98" transform="translate(-26.11 28.42) rotate(-18.69)" style="fill: #dba02a"/>
+    <ellipse cx="73.3" cy="93.54" rx="69.98" ry="15.98" transform="matrix(0.95, -0.32, 0.32, 0.95, -26.11, 28.42)" style="fill: #dba02a"/>
     <ellipse cx="73.3" cy="93.54" rx="28.88" ry="6.6" transform="translate(-26.11 28.42) rotate(-18.69)" style="fill: #b7852e"/>
     <path d="M7.3,117.46a69.89,69.89,0,0,0,89.6,41.73c36.27-13.22,55.72-52.23,42.5-88.5Z" style="fill: #fdbc2e"/>
     <path d="M140.22,49.57A69.89,69.89,0,1,0,8.9,97.45Z" style="fill: #6e7d2a"/>
   </g>
   <g id="science-s-anim2">
     <path d="M7.3,117.46A69.89,69.89,0,1,0,138.63,69.58Z" style="fill: #fdbc2e"/>
-    <ellipse cx="73.3" cy="93.54" rx="69.98" ry="15.98" transform="translate(-26.11 28.42) rotate(-18.69)" style="fill: #dba02a"/>
+    <ellipse cx="73.3" cy="93.54" rx="69.98" ry="15.98" transform="matrix(0.95, -0.32, 0.32, 0.95, -26.11, 28.42)" style="fill: #dba02a"/>
     <ellipse cx="73.3" cy="93.54" rx="28.88" ry="6.6" transform="translate(-26.11 28.42) rotate(-18.69)" style="fill: #b7852e"/>
     <path d="M7.3,117.46a69.89,69.89,0,0,0,89.6,41.73c36.27-13.22,55.72-52.23,42.5-88.5Z" style="fill: #fdbc2e"/>
     <path d="M139.22,70.57A69.89,69.89,0,1,0,7.9,118.45Z" style="fill: #6e7d2a"/>

@@ -18,6 +18,9 @@ AL.Letter = function(options, instance) {
 	this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 	this.svgPath = options.svgPath;
 
+	this.anim = options.anim || 'morph';
+	this.mina = options.mina || 'bounce';
+
 	/**
 	 *  id of the symbol, which will be "shape-<name_of_orig_export>_<illustrator_label_name>"
 	 */
@@ -98,7 +101,6 @@ AL.Letter.prototype._parseFragment = function(f) {
 	var self = this;
 
 	self._gArray = f.selectAll('g');
-	console.log(f.node);
 
 	var svgWrapper = Snap(f.node);
 	var viewBox = svgWrapper.attr('viewBox');
@@ -111,7 +113,7 @@ AL.Letter.prototype._parseFragment = function(f) {
 			self.height = self.svgOrigH;
 		}
 	} else {
-		console.log('no viewbox');
+		// console.log('no viewbox');
 	}
 
 
@@ -123,8 +125,6 @@ AL.Letter.prototype._parseFragment = function(f) {
 	self.cnv.node.setAttribute('style', 'left: ' + self.x / self.instance.w * 100 + '% ; top: ' + self.y / self.instance.h * 100 + '%');
 	// append to the AL instance's container html element
 	self.cnv.appendTo(self.instance.container);
-
-	console.log(self._gArray);
 
 	try {
 		self.cnv.add(Snap(self._gArray[0].clone()));
@@ -199,7 +199,7 @@ AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur) {
 	var scaleW = _percentW * (self.width / self.svgOrigW);
 	var scaleH = _percentH * (self.height / self.svgOrigH);
 	var dur = _dur || 0;
-	// console.log(scaleW);
+
 	self._applyResize(scaleW, scaleH, dur);
 };
 
@@ -218,7 +218,7 @@ AL.Letter.prototype._applyResize = function(percentW, percentH, dur) {
 	myMatrix.translate (transW, transH);
 	myMatrix.scale(self.scale.w, self.scale.h);
 
-	this.cnv.animate({ transform: myMatrix }, dur, mina.bounce);
+	this.cnv.animate({ transform: myMatrix }, dur, mina[self.mina]);
 }
 
 /**
@@ -247,9 +247,19 @@ AL.Letter.prototype.trigger = function(e, _time1, _hold, _time2) {
  *  @param  {Number} _duration Duration in ms
  */
 AL.Letter.prototype.animate = function(_duration) {
+	var self = this;
 	var duration = _duration || 500;
 	this.framePos++;
 	var nextFrag = this.frames[ this.framePos % this.frames.length].children();
+
+	if (this.anim === 'rotate') {
+		if (this.framePos % 2) {
+			this.rotate(-180, duration);
+		} else {
+			this.rotate(360, duration);
+		}
+		return;
+	}
 
 	var i = 0;
 	this.cnv.children().forEach(function( elt ) {
@@ -260,7 +270,7 @@ AL.Letter.prototype.animate = function(_duration) {
 			delete props.class;
 
 			elt.stop();
-			elt.animate(props, duration, mina.bounce);
+			elt.animate(props, duration, mina[self.mina]);
 		} catch(e) {
 			return;
 		}
@@ -271,12 +281,69 @@ AL.Letter.prototype.animate = function(_duration) {
 
 };
 
+/**
+ *  rotate by an angle in degrees
+ *  @param  {[type]} deg [description]
+ *  @return {[type]}     [description]
+ */
+AL.Letter.prototype.rotate = function(deg, dur) {
+	var self = this;
+	var myMatrix = new Snap.Matrix();
+
+	myMatrix.rotate(deg/8, self.width/2, self.height/2);
+	myMatrix.scale(self.scale.w, self.scale.h);
+
+	this.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 2*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 3*dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 4*dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 5*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 6*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.ease );
+	}, 7*dur/8);
+};
+
 AL.Letter.prototype.playSound = function() {
-	this.sound.triggerAttackRelease();
+	try {
+		this.sound.stop();
+		this.sound.start();
+	} catch(e) {}
 };
 
 AL.Letter.prototype._loadSound = function(sndPath) {
-	this.sound = new Tone.Sampler(sndPath).toMaster();
+	this.sound = new Tone.Player(sndPath).toMaster();
+	this.sound.retrigger = true;
 };
 
 
