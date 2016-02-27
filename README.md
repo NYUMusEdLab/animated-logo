@@ -1,5 +1,5 @@
 # animated-logo
-library for creating animated, interactive, sonified logos from SVG spritesheets
+Library for creating animated, interactive, sonified logos from SVG spritesheets. Created for NYU MusEDLab / Math, Science Music.
 
 # illustrator guidelines
 - use artboards. Put both versions of the graphic in the same artboard, each in their own layer. Do not put them in sub-layers. Screenshot example [here](https://www.dropbox.com/s/0igs04qiy34u0yv/Screenshot%202016-02-20%2022.48.46.png?dl=0)
@@ -11,3 +11,12 @@ library for creating animated, interactive, sonified logos from SVG spritesheets
   - object ids: layer names
 - put files in demo/img/src
 - run `grunt` to merge all svg files in the demo/img/src directory to a single svg file called svg-defs.svg. Use this file as the first param when creating a new animated logo object (`new AL('path/to/svg-defs.svg')`)
+
+# library guidelines
+- Documentation coming soon. For now, see above for generating svg spritesheet, then follow the templates in the demo folder.
+
+# Dependencies
+- Tone.JS (audio)
+- Snap.SVG (svg animation)
+- grunt-svgstore (merge svg's into a single file—see above)
+- `webpack` - build the library
