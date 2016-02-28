@@ -30,14 +30,14 @@ var AL = function(svgPath, options, onloadSprites, onloadSounds) {
 
 	// load spritesheet and do callback, i.e. create letters
 	this._loadSpritesheet(svgPath, onloadSprites);
-
 	// callback when sounds load
 	Tone.Buffer.on('load', function() {
 		if (onloadSounds) {
 			onloadSounds();
 		}
 	});
-
+  
+  this._initEventListener();
 };
 
 
@@ -56,6 +56,24 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 
 		callback();
 	});
+};
+
+/**
+ * listen for keypress  
+ * 
+ */
+
+AL.prototype._initEventListener = function() {
+  var self = this;
+  var letters = self.letters;
+  document.onkeypress = function(e) {
+    for(i = 0; i < letters.length; i++) {
+      if(letters[i].key.charCodeAt(0) === e.which) {
+        letters[i].trigger();
+        e.preventDefault();
+      }
+    }
+  };
 };
 
 module.exports = AL;
