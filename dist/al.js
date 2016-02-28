@@ -19754,7 +19754,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 
@@ -28054,14 +28054,14 @@
 
 		// load spritesheet and do callback, i.e. create letters
 		this._loadSpritesheet(svgPath, onloadSprites);
-
 		// callback when sounds load
 		Tone.Buffer.on('load', function() {
 			if (onloadSounds) {
 				onloadSounds();
 			}
 		});
-
+	  
+	  this._initEventListener();
 	};
 
 
@@ -28082,7 +28082,26 @@
 		});
 	};
 
+	/**
+	 * listen for keypress  
+	 * 
+	 */
+
+	AL.prototype._initEventListener = function() {
+	  var self = this;
+	  var letters = self.letters;
+	  document.onkeypress = function(e) {
+	    for(i = 0; i < letters.length; i++) {
+	      if(letters[i].key.charCodeAt(0) === e.which) {
+	        letters[i].trigger();
+	        e.preventDefault();
+	      }
+	    }
+	  };
+	};
+
 	module.exports = AL;
+
 
 /***/ },
 /* 4 */
@@ -28104,6 +28123,7 @@
 		 *  @attribute  keys
 		 *  @type Array of Strings
 		 */
+	  this.key = options.key || '';
 		this.keys = options.keys || [];
 		this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 		this.svgPath = options.svgPath;
@@ -28216,6 +28236,8 @@
 		// append to the AL instance's container html element
 		self.cnv.appendTo(self.instance.container);
 
+		console.log(self._gArray);
+
 		try {
 			self.cnv.add(Snap(self._gArray[0].clone()));
 		} catch(e) {
@@ -28308,7 +28330,7 @@
 		myMatrix.translate (transW, transH);
 		myMatrix.scale(self.scale.w, self.scale.h);
 
-		this.cnv.animate({ transform: myMatrix }, dur, mina[self.mina]);
+		this.cnv.animate({ transform: myMatrix }, dur, mina.bounce);
 	}
 
 	/**
@@ -28337,19 +28359,9 @@
 	 *  @param  {Number} _duration Duration in ms
 	 */
 	AL.Letter.prototype.animate = function(_duration) {
-		var self = this;
 		var duration = _duration || 500;
 		this.framePos++;
 		var nextFrag = this.frames[ this.framePos % this.frames.length].children();
-
-		if (this.anim === 'rotate') {
-			if (this.framePos % 2) {
-				this.rotate(-180, duration);
-			} else {
-				this.rotate(360, duration);
-			}
-			return;
-		}
 
 		var i = 0;
 		this.cnv.children().forEach(function( elt ) {
@@ -28360,7 +28372,7 @@
 				delete props.class;
 
 				elt.stop();
-				elt.animate(props, duration, mina[self.mina]);
+				elt.animate(props, duration, mina[this.mina]);
 			} catch(e) {
 				return;
 			}
@@ -28473,6 +28485,7 @@
 	}
 
 	module.exports = AL;
+
 
 /***/ }
 /******/ ]);

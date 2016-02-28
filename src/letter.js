@@ -19,6 +19,9 @@ AL.Letter = function(options, instance) {
 	this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 	this.svgPath = options.svgPath;
 
+	this.anim = options.anim || 'morph';
+	this.mina = options.mina || 'bounce';
+
 	/**
 	 *  id of the symbol, which will be "shape-<name_of_orig_export>_<illustrator_label_name>"
 	 */
@@ -99,7 +102,6 @@ AL.Letter.prototype._parseFragment = function(f) {
 	var self = this;
 
 	self._gArray = f.selectAll('g');
-	console.log(f.node);
 
 	var svgWrapper = Snap(f.node);
 	var viewBox = svgWrapper.attr('viewBox');
@@ -112,7 +114,7 @@ AL.Letter.prototype._parseFragment = function(f) {
 			self.height = self.svgOrigH;
 		}
 	} else {
-		console.log('no viewbox');
+		// console.log('no viewbox');
 	}
 
 
@@ -200,7 +202,7 @@ AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur) {
 	var scaleW = _percentW * (self.width / self.svgOrigW);
 	var scaleH = _percentH * (self.height / self.svgOrigH);
 	var dur = _dur || 0;
-	// console.log(scaleW);
+
 	self._applyResize(scaleW, scaleH, dur);
 };
 
@@ -261,7 +263,7 @@ AL.Letter.prototype.animate = function(_duration) {
 			delete props.class;
 
 			elt.stop();
-			elt.animate(props, duration, mina.bounce);
+			elt.animate(props, duration, mina[this.mina]);
 		} catch(e) {
 			return;
 		}
@@ -272,12 +274,69 @@ AL.Letter.prototype.animate = function(_duration) {
 
 };
 
+/**
+ *  rotate by an angle in degrees
+ *  @param  {[type]} deg [description]
+ *  @return {[type]}     [description]
+ */
+AL.Letter.prototype.rotate = function(deg, dur) {
+	var self = this;
+	var myMatrix = new Snap.Matrix();
+
+	myMatrix.rotate(deg/8, self.width/2, self.height/2);
+	myMatrix.scale(self.scale.w, self.scale.h);
+
+	this.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 2*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 3*dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 4*dur/8);
+
+	setTimeout(function() {
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 5*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.elastic );
+	}, 6*dur/8);
+
+	setTimeout(function() {
+
+		myMatrix.rotate(deg/8, self.width/2, self.height/2);
+		self.cnv.animate({ transform: myMatrix }, dur/8, mina.ease );
+	}, 7*dur/8);
+};
+
 AL.Letter.prototype.playSound = function() {
-	this.sound.triggerAttackRelease();
+	try {
+		this.sound.stop();
+		this.sound.start();
+	} catch(e) {}
 };
 
 AL.Letter.prototype._loadSound = function(sndPath) {
-	this.sound = new Tone.Sampler(sndPath).toMaster();
+	this.sound = new Tone.Player(sndPath).toMaster();
+	this.sound.retrigger = true;
 };
 
 
