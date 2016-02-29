@@ -14,9 +14,20 @@ AL.Letter = function(options, instance) {
 	 *  @attribute  keys
 	 *  @type Array of Strings
 	 */
-  this.key = options.key || '';
-	this.keys = options.keys || [];
-	this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
+	// this.keys = options.keys || [];
+  
+  /** 
+   * convert keys to ascii
+   * @attribute keyCodes
+   * @type Array of Integers
+   */
+  var keyCodes = [];
+  options.keys.forEach(function(key){
+    typeof key === "string" ? (keyCodes.push(key.toUpperCase().charCodeAt(0))) : keyCodes.push(key);
+  });
+  this.keyCodes = keyCodes;
+  
+  this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 	this.svgPath = options.svgPath;
 
 	this.anim = options.anim || 'morph';

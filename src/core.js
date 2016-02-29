@@ -66,12 +66,27 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 AL.prototype._initEventListener = function() {
   var self = this;
   var letters = self.letters;
-  document.onkeypress = function(e) {
+  console.log(self);
+  document.onkeydown = function(e) {
     for(i = 0; i < letters.length; i++) {
-      if(letters[i].key.charCodeAt(0) === e.which) {
+      if(letters[i].keyCodes.includes(e.which)){
+        console.log('onkeydown -->' + e.which);
         letters[i].trigger();
         e.preventDefault();
       }
+      // if(letter.keyCodes.length > 1){
+      //   letter.keyCodes.forEach(function(k){
+      //     if(k === e.which){
+      //       letter.trigger();
+      //       e.preventDefault();
+      //     }
+      //   });
+      // }else {
+      //   if(letter.keyCodes[0] === e.which){
+      //     letter.trigger();
+      //     e.preventDefault();
+      //   }
+      // }
     }
   };
 };
