@@ -23,7 +23,7 @@ AL.Letter = function(options, instance) {
    */
   var keyCodes = [];
   options.keys.forEach(function(key){
-    typeof key === "string" ? keyCodes.push(key.charCodeAt(0)) : keyCodes.push(key);
+    typeof key === "string" ? (keyCodes.push(key.toUpperCase().charCodeAt(0))) : keyCodes.push(key);
   });
   this.keyCodes = keyCodes;
   

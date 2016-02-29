@@ -19754,7 +19754,7 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*** IMPORTS FROM imports-loader ***/
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_LOCAL_MODULE_0__;/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	var fix = module.exports=0;
 
@@ -28090,12 +28090,27 @@
 	AL.prototype._initEventListener = function() {
 	  var self = this;
 	  var letters = self.letters;
-	  document.onkeypress = function(e) {
+	  console.log(self);
+	  document.onkeydown = function(e) {
 	    for(i = 0; i < letters.length; i++) {
-	      if(letters[i].key.charCodeAt(0) === e.which) {
+	      if(letters[i].keyCodes.includes(e.which)){
+	        console.log('onkeydown -->' + e.which);
 	        letters[i].trigger();
 	        e.preventDefault();
 	      }
+	      // if(letter.keyCodes.length > 1){
+	      //   letter.keyCodes.forEach(function(k){
+	      //     if(k === e.which){
+	      //       letter.trigger();
+	      //       e.preventDefault();
+	      //     }
+	      //   });
+	      // }else {
+	      //   if(letter.keyCodes[0] === e.which){
+	      //     letter.trigger();
+	      //     e.preventDefault();
+	      //   }
+	      // }
 	    }
 	  };
 	};
@@ -28123,9 +28138,20 @@
 		 *  @attribute  keys
 		 *  @type Array of Strings
 		 */
-	  this.key = options.key || '';
-		this.keys = options.keys || [];
-		this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
+		// this.keys = options.keys || [];
+	  
+	  /** 
+	   * convert keys to ascii
+	   * @attribute keyCodes
+	   * @type Array of Integers
+	   */
+	  var keyCodes = [];
+	  options.keys.forEach(function(key){
+	    typeof key === "string" ? (keyCodes.push(key.toUpperCase().charCodeAt(0))) : keyCodes.push(key);
+	  });
+	  this.keyCodes = keyCodes;
+	  
+	  this.sounds = options.sounds ? this._loadSound(options.sounds) : [];
 		this.svgPath = options.svgPath;
 
 		this.anim = options.anim || 'morph';
