@@ -37,7 +37,7 @@ var AL = function(svgPath, options, onloadSprites, onloadSounds) {
 		}
 	});
   
-  this._initEventListener();
+  this._initEventListeners();
 };
 
 
@@ -63,31 +63,31 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
  * 
  */
 
-AL.prototype._initEventListener = function() {
+AL.prototype._initEventListeners = function() {
   var self = this;
   var letters = self.letters;
   console.log(self);
-  document.onkeydown = function(e) {
-    for(i = 0; i < letters.length; i++) {
-      if(letters[i].keyCodes.includes(e.which)){
-        console.log('onkeydown -->' + e.which);
-        letters[i].trigger();
+  document.onkeypress = function(e){
+    e = e || window.event;
+    letters.forEach(function(letter){
+      console.log(letter.keyCodes);
+      if(letter.keyCodes.includes(e.which)){
+        letter.trigger();
         e.preventDefault();
       }
-      // if(letter.keyCodes.length > 1){
-      //   letter.keyCodes.forEach(function(k){
-      //     if(k === e.which){
-      //       letter.trigger();
-      //       e.preventDefault();
-      //     }
-      //   });
-      // }else {
-      //   if(letter.keyCodes[0] === e.which){
-      //     letter.trigger();
-      //     e.preventDefault();
-      //   }
-      // }
-    }
+    });  
+  };
+  // for "special" key events like arrow keys, etc
+  document.onkeydown = function(e){
+    e = e || window.event;
+    letters.forEach(function(letter){
+      // other keys
+      var otherKeyCodes = [37,38,39,40];
+      if(otherKeyCodes.includes(e.which) && letter.keyCodes.includes(e.which)){
+        letter.trigger();
+        e.preventDefault();
+      }
+    });  
   };
 };
 
