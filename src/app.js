@@ -14,6 +14,6 @@ Snap.plugin( function( Snap, Element, Paper, global ) {
 });
 
 var AL = require('./core');
-require('./letter');
+require('./symbols');
 
 module.exports = window.AL = AL;

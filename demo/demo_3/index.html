@@ -44,9 +44,8 @@
 		var alogo = new AL('../img/svg-defs.svg', logoOptions, spritesReady, soundsReady);
 		// alogo.defaultSize(951, 574);
 
-		var LetterMeta = {
+		var SymbolMeta = {
 			math_m : {
-				keys: 'h',
 				sounds: '../audio/andreas-klein_jazz-kit-snare-on-brush-rebound_drums_one_shot_.mp3',
 				source_id: 'shape-sprites_math-m',
 				x: 198,
@@ -59,7 +58,6 @@
 			},
 
 			math_a : {
-				keys: 'A',
 				sounds: '../audio/elecPiano_03.mp3',
 				source_id: 'shape-sprites_math-a',
 				x: 454,
@@ -72,7 +70,6 @@
 			},
 
 			math_t : {
-				keys: 'A',
 				sounds: '../audio/upBass_01.mp3',
 				source_id: 'shape-sprites_math-t',
 				x: 595,
@@ -85,7 +82,6 @@
 			},
 
 			math_h : {
-				keys: 'A',
 				sounds: '../audio/accordion_02b.mp3',
 				source_id: 'shape-sprites_math-h',
 				mina: 'easein',
@@ -99,7 +95,6 @@
 			},
 
 			science_s : {
-				keys: 'A',
 				sounds: '../audio/banana-shaker_test_01.mp3',
 				source_id: 'shape-sprites_science-s',
 				x: 24,
@@ -112,7 +107,6 @@
 			},
 
 			science_c1 : {
-				keys: 'A',
 				sounds: '../audio/sinatra_cymbal1.mp3',
 				source_id: 'shape-sprites_science-c1',
 				x: 179,
@@ -125,7 +119,6 @@
 			},
 
 			science_i : {
-				keys: 'A',
 				sounds: '../audio/acGtrA_03.mp3',
 				source_id: 'shape-sprites_science-i',
 				x: 280,
@@ -138,7 +131,6 @@
 			},
 
 			science_e1 : {
-				keys: 'A',
 				sounds: '../audio/drums_sinatra1_tambodrum.mp3',
 				source_id: 'shape-sprites_science-e1',
 				x: 384,
@@ -151,7 +143,6 @@
 			},
 
 			science_n : {
-				keys: 'A',
 				sounds: '../audio/drums_sinatra1_talkdrum.mp3',
 				source_id: 'shape-sprites_science-n',
 				x: 542,
@@ -164,7 +155,6 @@
 			},
 
 			science_c2 : {
-				keys: 'A',
 				sounds: '../audio/vox_scratch5b.mp3',
 				source_id: 'shape-sprites_science-c1',
 				x: 677,
@@ -177,7 +167,6 @@
 			},
 
 			science_e2 : {
-				keys: 'A',
 				sounds: '../audio/kicks_1_01.mp3',
 				source_id: 'shape-sprites_science-e1',
 				x: 786,
@@ -192,10 +181,10 @@
 
 
 		function spritesReady() {
-			Object.keys(LetterMeta).forEach(function(key) {
-				var optionsItem = LetterMeta[key];
+			Object.keys(SymbolMeta).forEach(function(key) {
+				var optionsItem = SymbolMeta[key];
 				optionsItem.destination_id = key;
-				alogo.createLetter(optionsItem);
+				alogo.createSymbol(optionsItem);
 			});
 		}
 

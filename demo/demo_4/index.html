@@ -44,7 +44,7 @@
 		var alogo = new AL('../img/svg-defs.svg', logoOptions, spritesReady, soundsReady);
 		// alogo.defaultSize(951, 574);
 
-		var LetterMeta = {
+		var SymbolMeta = {
 			math_m : {
 				keys: ['m', 37],
 				sounds: '../audio/andreas-klein_jazz-kit-snare-on-brush-rebound_drums_one_shot_.mp3',
@@ -192,10 +192,10 @@
 
 
 		function spritesReady() {
-			Object.keys(LetterMeta).forEach(function(key) {
-				var optionsItem = LetterMeta[key];
+			Object.keys(SymbolMeta).forEach(function(key) {
+				var optionsItem = SymbolMeta[key];
 				optionsItem.destination_id = key;
-				alogo.createLetter(optionsItem);
+				alogo.createSymbol(optionsItem);
 			});
 		}
 

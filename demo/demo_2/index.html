@@ -17,7 +17,6 @@
 		var alogo = new AL('../img/images.svg', 'animated-logo', spritesReady, soundsReady);
 
 		var options = {
-			keys: 'A',
 			sounds: '../audio/banana-shaker_test_01.mp3',
 			width: 400,
 			height:400,
@@ -38,7 +37,7 @@
 		// }
 
 		function spritesReady() {
-			var s = alogo.createLetter(options);
+			var s = alogo.createSymbol(options);
 			// var t = alogo.createLetter(options2);
 		}
 

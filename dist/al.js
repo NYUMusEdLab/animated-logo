@@ -60,7 +60,7 @@
 	});
 
 	var AL = __webpack_require__(2);
-	__webpack_require__(4);
+	__webpack_require__(5);
 
 	module.exports = window.AL = AL;
 
@@ -8353,13 +8353,13 @@
 	  this.container = document.getElementById(this.id);
 
 	  /**
-	   *  Array of all letters added to
+	   *  Array of all symbols added to
 	   *  this Animated Logo
 	   *
-	   *  @name  letters
+	   *  @name  symbols
 	   *  @type {Array}
 	   */
-	  this.letters = [];
+	  this.symbols = [];
 
 	  /**
 	   *  SVG Spritesheet
@@ -8368,7 +8368,7 @@
 	   */
 	  this.spritesheet = null;
 
-	  // load spritesheet and do callback, i.e. create letters
+	  // load spritesheet and do callback, i.e. create symbols
 	  this._loadSpritesheet(svgPath, onloadSprites);
 	  // callback when sounds load
 	  Tone.Buffer.on('load', function() {
@@ -8399,14 +8399,14 @@
 
 	AL.prototype._initEventListeners = function() {
 	  var self = this;
-	  var letters = self.letters;
+	  var symbols = self.symbols;
 
 	  document.onkeypress = function(e){
 	    e = e || window.event;
-	    letters.forEach(function(letter){
-	      console.log(letter.keyCodes);
-	      if(letter.keyCodes.includes(e.which)){
-	        letter.trigger();
+	    symbols.forEach(function(symbol){
+	      console.log(symbol.keyCodes);
+	      if(symbol.keyCodes.includes(e.which)){
+	        symbol.trigger();
 	        e.preventDefault();
 	      }
 	    });  
@@ -8414,11 +8414,11 @@
 	  // for "special" key events like arrow keys, etc
 	  document.onkeydown = function(e){
 	    e = e || window.event;
-	    letters.forEach(function(letter){
+	    symbols.forEach(function(symbol){
 	      // other keys
 	      var otherKeyCodes = [37,38,39,40];
-	      if(otherKeyCodes.includes(e.which) && letter.keyCodes.includes(e.which)){
-	        letter.trigger();
+	      if(otherKeyCodes.includes(e.which) && symbol.keyCodes.includes(e.which)){
+	        symbol.trigger();
 	        e.preventDefault();
 	      }
 	    });  
@@ -28117,19 +28117,20 @@
 	} (this));
 
 /***/ },
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Tone = __webpack_require__(3);
 	var AL = __webpack_require__(2);
 
 	/**
-	 *  An individual letter.
+	 *  An individual symbol.
 	 *
-	 *  @class  AL.Letter
+	 *  @class  AL.Symbol
 	 *  @param {[type]} options [description]
 	 */
-	AL.Letter = function(options, parentLogo) {
+	AL.Symbol = function(options, parentLogo) {
 
 	  /**
 	   *  ASCII
@@ -28234,7 +28235,7 @@
 	  this._initEventListeners();
 	}
 
-	AL.Letter.prototype.getSpritesByID = function(source_id) {
+	AL.Symbol.prototype.getSpritesByID = function(source_id) {
 	  var frag = this.parentLogo.spritesheet.node.getElementById(source_id);
 	  var clonedFrag = Snap(frag).clone();
 	  this._parseFragment( clonedFrag );
@@ -28242,12 +28243,12 @@
 
 	/**
 	 *  load a spritesheet from an svgPath
-	 *  (if letter is standalone)
+	 *  (if symbol is standalone)
 	 *  
 	 *  @param  {[type]} svgPath [description]
 	 *  @return {[type]}         [description]
 	 */
-	AL.Letter.prototype.load = function(svgPath) {
+	AL.Symbol.prototype.load = function(svgPath) {
 	  var self = this;
 
 	  Snap.load(self.svgPath, function (fragment) {
@@ -28256,7 +28257,7 @@
 	}
 
 
-	AL.Letter.prototype._parseFragment = function(f) {
+	AL.Symbol.prototype._parseFragment = function(f) {
 	  var self = this;
 
 	  self._gArray = f.selectAll('g');
@@ -28316,7 +28317,7 @@
 	 *  @param  {Number} [_dur]   Duration in ms (optional)
 	 *  
 	 */
-	AL.Letter.prototype.resize = function(_w, _h, _dur, anim) {
+	AL.Symbol.prototype.resize = function(_w, _h, _dur, anim) {
 	  var self = this;
 	  var w = _w || self.width;
 	  var h = _h || self.height;
@@ -28340,7 +28341,7 @@
 	 *  @param  {Number} _dur      Duration in ms (optional)
 	 *  @return {[type]}           [description]
 	 */
-	AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur, anim) {
+	AL.Symbol.prototype.rescale = function(_percentW, _percentH, _dur, anim) {
 	  var self = this;
 
 	  // if only two arguments are provided,
@@ -28363,7 +28364,7 @@
 	};
 
 
-	AL.Letter.prototype._applyResize = function(percentW, percentH, dur, anim) {
+	AL.Symbol.prototype._applyResize = function(percentW, percentH, dur, anim) {
 	  var self = this;
 	  var myMatrix = new Snap.Matrix();
 	  var anim = mina[anim] || mina.bounce;
@@ -28385,7 +28386,7 @@
 	 *  Trigger animation
 	 *  @return {[type]} [description]
 	 */
-	AL.Letter.prototype.trigger = function(_time1, _hold, _time2) {
+	AL.Symbol.prototype.trigger = function(_time1, _hold, _time2) {
 	  var self = this;
 
 	  var time1 = _time1 || this.animEnv.attack || 30;
@@ -28406,7 +28407,7 @@
 	 *  @method  animate
 	 *  @param  {Number} _duration Duration in ms
 	 */
-	AL.Letter.prototype.animate = function(_duration) {
+	AL.Symbol.prototype.animate = function(_duration) {
 	  var duration = _duration || 500;
 	  this.framePos++;
 	  var nextFrag = this.frames[ this.framePos % this.frames.length].children();
@@ -28439,7 +28440,7 @@
 	 *  @param  {[type]} deg [description]
 	 *  @return {[type]}     [description]
 	 */
-	AL.Letter.prototype.rotate = function(deg, dur) {
+	AL.Symbol.prototype.rotate = function(deg, dur) {
 	  var self = this;
 	  var myMatrix = new Snap.Matrix();
 
@@ -28459,20 +28460,20 @@
 	  }
 	};
 
-	AL.Letter.prototype.playSound = function() {
+	AL.Symbol.prototype.playSound = function() {
 	  try {
 	    this.sound.stop();
 	    this.sound.start();
 	  } catch(e) {}
 	};
 
-	AL.Letter.prototype._loadSound = function(sndPath) {
+	AL.Symbol.prototype._loadSound = function(sndPath) {
 	  this.sound = new Tone.Player(sndPath).toMaster();
 	  this.sound.retrigger = true;
 	};
 
 
-	AL.Letter.prototype._initEventListeners = function() {
+	AL.Symbol.prototype._initEventListeners = function() {
 	  var self = this;
 	  var elt = document.getElementById(this.id);
 
@@ -28497,14 +28498,14 @@
 	/**
 	 *  Constructor function
 	 *
-	 *  @method  createLetter
+	 *  @method  createSymbol
 	 *  @param  {Object} options Options object
-	 *  @return {AL.Letter}
+	 *  @return {AL.Symbol}
 	 */
-	AL.prototype.createLetter = function(options) {
-	  var letter = new AL.Letter(options, this);
-	  this.letters.push(letter);
-	  return letter;
+	AL.prototype.createSymbol = function(options) {
+	  var symbol = new AL.Symbol(options, this);
+	  this.symbols.push(symbol);
+	  return symbol;
 	}
 
 	module.exports = AL;

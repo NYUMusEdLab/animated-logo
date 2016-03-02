@@ -2,12 +2,12 @@ var Tone = require('tone');
 var AL = require('./core');
 
 /**
- *  An individual letter.
+ *  An individual symbol.
  *
- *  @class  AL.Letter
+ *  @class  AL.Symbol
  *  @param {[type]} options [description]
  */
-AL.Letter = function(options, parentLogo) {
+AL.Symbol = function(options, parentLogo) {
 
   /**
    *  ASCII
@@ -112,7 +112,7 @@ AL.Letter = function(options, parentLogo) {
   this._initEventListeners();
 }
 
-AL.Letter.prototype.getSpritesByID = function(source_id) {
+AL.Symbol.prototype.getSpritesByID = function(source_id) {
   var frag = this.parentLogo.spritesheet.node.getElementById(source_id);
   var clonedFrag = Snap(frag).clone();
   this._parseFragment( clonedFrag );
@@ -120,12 +120,12 @@ AL.Letter.prototype.getSpritesByID = function(source_id) {
 
 /**
  *  load a spritesheet from an svgPath
- *  (if letter is standalone)
+ *  (if symbol is standalone)
  *  
  *  @param  {[type]} svgPath [description]
  *  @return {[type]}         [description]
  */
-AL.Letter.prototype.load = function(svgPath) {
+AL.Symbol.prototype.load = function(svgPath) {
   var self = this;
 
   Snap.load(self.svgPath, function (fragment) {
@@ -134,7 +134,7 @@ AL.Letter.prototype.load = function(svgPath) {
 }
 
 
-AL.Letter.prototype._parseFragment = function(f) {
+AL.Symbol.prototype._parseFragment = function(f) {
   var self = this;
 
   self._gArray = f.selectAll('g');
@@ -194,7 +194,7 @@ AL.Letter.prototype._parseFragment = function(f) {
  *  @param  {Number} [_dur]   Duration in ms (optional)
  *  
  */
-AL.Letter.prototype.resize = function(_w, _h, _dur, anim) {
+AL.Symbol.prototype.resize = function(_w, _h, _dur, anim) {
   var self = this;
   var w = _w || self.width;
   var h = _h || self.height;
@@ -218,7 +218,7 @@ AL.Letter.prototype.resize = function(_w, _h, _dur, anim) {
  *  @param  {Number} _dur      Duration in ms (optional)
  *  @return {[type]}           [description]
  */
-AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur, anim) {
+AL.Symbol.prototype.rescale = function(_percentW, _percentH, _dur, anim) {
   var self = this;
 
   // if only two arguments are provided,
@@ -241,7 +241,7 @@ AL.Letter.prototype.rescale = function(_percentW, _percentH, _dur, anim) {
 };
 
 
-AL.Letter.prototype._applyResize = function(percentW, percentH, dur, anim) {
+AL.Symbol.prototype._applyResize = function(percentW, percentH, dur, anim) {
   var self = this;
   var myMatrix = new Snap.Matrix();
   var anim = mina[anim] || mina.bounce;
@@ -263,7 +263,7 @@ AL.Letter.prototype._applyResize = function(percentW, percentH, dur, anim) {
  *  Trigger animation
  *  @return {[type]} [description]
  */
-AL.Letter.prototype.trigger = function(_time1, _hold, _time2) {
+AL.Symbol.prototype.trigger = function(_time1, _hold, _time2) {
   var self = this;
 
   var time1 = _time1 || this.animEnv.attack || 30;
@@ -284,7 +284,7 @@ AL.Letter.prototype.trigger = function(_time1, _hold, _time2) {
  *  @method  animate
  *  @param  {Number} _duration Duration in ms
  */
-AL.Letter.prototype.animate = function(_duration) {
+AL.Symbol.prototype.animate = function(_duration) {
   var duration = _duration || 500;
   this.framePos++;
   var nextFrag = this.frames[ this.framePos % this.frames.length].children();
@@ -317,7 +317,7 @@ AL.Letter.prototype.animate = function(_duration) {
  *  @param  {[type]} deg [description]
  *  @return {[type]}     [description]
  */
-AL.Letter.prototype.rotate = function(deg, dur) {
+AL.Symbol.prototype.rotate = function(deg, dur) {
   var self = this;
   var myMatrix = new Snap.Matrix();
 
@@ -337,20 +337,20 @@ AL.Letter.prototype.rotate = function(deg, dur) {
   }
 };
 
-AL.Letter.prototype.playSound = function() {
+AL.Symbol.prototype.playSound = function() {
   try {
     this.sound.stop();
     this.sound.start();
   } catch(e) {}
 };
 
-AL.Letter.prototype._loadSound = function(sndPath) {
+AL.Symbol.prototype._loadSound = function(sndPath) {
   this.sound = new Tone.Player(sndPath).toMaster();
   this.sound.retrigger = true;
 };
 
 
-AL.Letter.prototype._initEventListeners = function() {
+AL.Symbol.prototype._initEventListeners = function() {
   var self = this;
   var elt = document.getElementById(this.id);
 
@@ -375,14 +375,14 @@ AL.Letter.prototype._initEventListeners = function() {
 /**
  *  Constructor function
  *
- *  @method  createLetter
+ *  @method  createSymbol
  *  @param  {Object} options Options object
- *  @return {AL.Letter}
+ *  @return {AL.Symbol}
  */
-AL.prototype.createLetter = function(options) {
-  var letter = new AL.Letter(options, this);
-  this.letters.push(letter);
-  return letter;
+AL.prototype.createSymbol = function(options) {
+  var symbol = new AL.Symbol(options, this);
+  this.symbols.push(symbol);
+  return symbol;
 }
 
 module.exports = AL;

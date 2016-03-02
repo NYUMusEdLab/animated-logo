@@ -15,13 +15,13 @@ var AL = function(svgPath, options, onloadSprites, onloadSounds) {
   this.container = document.getElementById(this.id);
 
   /**
-   *  Array of all letters added to
+   *  Array of all symbols added to
    *  this Animated Logo
    *
-   *  @name  letters
+   *  @name  symbols
    *  @type {Array}
    */
-  this.letters = [];
+  this.symbols = [];
 
   /**
    *  SVG Spritesheet
@@ -30,7 +30,7 @@ var AL = function(svgPath, options, onloadSprites, onloadSounds) {
    */
   this.spritesheet = null;
 
-  // load spritesheet and do callback, i.e. create letters
+  // load spritesheet and do callback, i.e. create symbols
   this._loadSpritesheet(svgPath, onloadSprites);
   // callback when sounds load
   Tone.Buffer.on('load', function() {
@@ -61,14 +61,14 @@ AL.prototype._loadSpritesheet = function(svgPath, callback) {
 
 AL.prototype._initEventListeners = function() {
   var self = this;
-  var letters = self.letters;
+  var symbols = self.symbols;
 
   document.onkeypress = function(e){
     e = e || window.event;
-    letters.forEach(function(letter){
-      console.log(letter.keyCodes);
-      if(letter.keyCodes.includes(e.which)){
-        letter.trigger();
+    symbols.forEach(function(symbol){
+      console.log(symbol.keyCodes);
+      if(symbol.keyCodes.includes(e.which)){
+        symbol.trigger();
         e.preventDefault();
       }
     });  
@@ -76,11 +76,11 @@ AL.prototype._initEventListeners = function() {
   // for "special" key events like arrow keys, etc
   document.onkeydown = function(e){
     e = e || window.event;
-    letters.forEach(function(letter){
+    symbols.forEach(function(symbol){
       // other keys
       var otherKeyCodes = [37,38,39,40];
-      if(otherKeyCodes.includes(e.which) && letter.keyCodes.includes(e.which)){
-        letter.trigger();
+      if(otherKeyCodes.includes(e.which) && symbol.keyCodes.includes(e.which)){
+        symbol.trigger();
         e.preventDefault();
       }
     });  
