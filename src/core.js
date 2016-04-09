@@ -4,7 +4,7 @@
  *    
  */
 
-var Tone = require('tone');
+var ToneBuffer = require('tone/Tone/core/Buffer');
 
 var AL = function(svgPath, options, onloadSprites, onloadSounds) {
 
@@ -32,8 +32,9 @@ var AL = function(svgPath, options, onloadSprites, onloadSounds) {
 
   // load spritesheet and do callback, i.e. create symbols
   this._loadSpritesheet(svgPath, onloadSprites);
+
   // callback when sounds load
-  Tone.Buffer.on('load', function() {
+  ToneBuffer.on('load', function() {
     if (onloadSounds) {
       onloadSounds();
     }
