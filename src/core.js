@@ -67,7 +67,6 @@ AL.prototype._initEventListeners = function() {
   document.onkeypress = function(e){
     e = e || window.event;
     symbols.forEach(function(symbol){
-      console.log(symbol.keyCodes);
       if(symbol.keyCodes.includes(e.which)){
         symbol.trigger();
         e.preventDefault();

@@ -182,6 +182,7 @@
 
 		function spritesReady() {
 			Object.keys(SymbolMeta).forEach(function(key) {
+				// console.log(key);
 				var optionsItem = SymbolMeta[key];
 				optionsItem.destination_id = key;
 				alogo.createSymbol(optionsItem);
