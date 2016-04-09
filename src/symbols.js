@@ -1,4 +1,4 @@
-var TonePlayer = require('tone').Player;
+var TonePlayer = require('tone/Tone/source/Player');
 var AL = require('./core');
 
 /**
@@ -345,7 +345,8 @@ AL.Symbol.prototype.playSound = function() {
 };
 
 AL.Symbol.prototype._loadSound = function(sndPath) {
-  this.sound = new TonePlayer(sndPath).toMaster();
+  this.sound = new TonePlayer(sndPath);
+  this.sound.connect(this.sound.input.context.destination);
   this.sound.retrigger = true;
 };
 
