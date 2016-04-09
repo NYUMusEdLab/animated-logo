@@ -1,4 +1,4 @@
-var Tone = require('tone');
+var TonePlayer = require('tone').Player;
 var AL = require('./core');
 
 /**
@@ -170,7 +170,7 @@ AL.Symbol.prototype._parseFragment = function(f) {
     self.snapElement.add(Snap(self._gArray[0].clone()));
   }
 
-  self.snapElement = Snap(this.snapElement.node.children[2]); // total hack to find actual elt
+  self.snapElement = Snap(this.snapElement.node.childNodes[2]); // total hack to find actual elt
 
   self.frames = self._gArray.forEach(function(frame) {
     var s = Snap(frame).clone();
@@ -345,7 +345,7 @@ AL.Symbol.prototype.playSound = function() {
 };
 
 AL.Symbol.prototype._loadSound = function(sndPath) {
-  this.sound = new Tone.Player(sndPath).toMaster();
+  this.sound = new TonePlayer(sndPath).toMaster();
   this.sound.retrigger = true;
 };
 
