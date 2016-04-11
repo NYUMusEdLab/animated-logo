@@ -69,7 +69,7 @@ AL.prototype._initEventListeners = function() {
     symbols.forEach(function(symbol){
       if(symbol.keyCodes.includes(e.which)){
         symbol.trigger();
-        e.preventDefault();
+        // e.preventDefault();
       }
     });  
   };
@@ -81,7 +81,7 @@ AL.prototype._initEventListeners = function() {
       var otherKeyCodes = [37,38,39,40];
       if(otherKeyCodes.includes(e.which) && symbol.keyCodes.includes(e.which)){
         symbol.trigger();
-        e.preventDefault();
+        // e.preventDefault();
       }
     });  
   };
