@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="../../dist/al.css">
+		<script type="text/javascript" src="../../dist/al.js"></script>
+
+		<style>
+			html,body { height: 100%; margin: 0px; padding: 0px; }
+
+			#animated-logo {
+				position:relative;
+				width:951px;
+				height:574px;
+				display:block;
+				float:left;
+				transform:scale(1);
+			}
+
+			#animated-logo svg {
+				position:absolute;
+			}
+
+		</style>
+
+	</head>
+	<body>
+
+	<div id="animated-logo">
+	</div>
+
+	<script type="text/javascript">
+
+		// var alogo = new AL('../img/spritesheet.svg', spritesReady, soundsReady);
+
+		var containerID = 'animated-logo';
+		var logoOptions = {
+			w: 951,
+			h: 574,
+			id: containerID
+		};
+		var alogo = new AL('./img/svg-defs.svg', logoOptions, spritesReady, soundsReady);
+		// alogo.defaultSize(951, 574);
+
+		var SymbolMeta = {
+			math_m : {
+				keys: ['m', 37],
+				sounds: '../audio/andreas-klein_jazz-kit-snare-on-brush-rebound_drums_one_shot_.mp3',
+				source_id: 'shape-C',
+				x: 198,
+				y: 15,
+				animEnv : {
+					attack: 300,
+					sustain: 350,
+					release: 500
+				}
+			},
+
+			math_a : {
+				keys: ['a'],
+				sounds: '../audio/elecPiano_03.mp3',
+				source_id: 'shape-G',
+				x: 454,
+				y: 16,
+				animEnv : {
+					attack: 140,
+					sustain: 300,
+					release: 500
+				}
+			},
+
+			math_t : {
+				keys: ['t'],
+				sounds: '../audio/upBass_01.mp3',
+				source_id: 'shape-M1',
+				x: 595,
+				y: 14,
+				animEnv : {
+					attack: 240,
+					sustain: 300,
+					release: 700
+				}
+			},
+
+			math_h : {
+				keys: ['h'],
+				sounds: '../audio/accordion_02b.mp3',
+				source_id: 'shape-M2',
+				mina: 'easein',
+				x: 794,
+				y: 12,
+				animEnv : {
+					attack: 60,
+					sustain: 120,
+					release: 800
+				}
+			},
+
+            math_z : {
+                keys: ['h'],
+                sounds: '../audio/accordion_02b.mp3',
+                source_id: 'shape-M3',
+                mina: 'easein',
+                x: 994,
+                y: 12,
+                animEnv : {
+                    attack: 60,
+                    sustain: 120,
+                    release: 800
+                }
+            }
+		};
+
+
+		function spritesReady() {
+			Object.keys(SymbolMeta).forEach(function(key) {
+				var optionsItem = SymbolMeta[key];
+				optionsItem.destination_id = key;
+				alogo.createSymbol(optionsItem);
+			});
+		}
+
+		function soundsReady() {
+			console.log('sounds r ready!');
+		}
+	</script>
+
+	</body>
+
+</html>
