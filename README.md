@@ -20,3 +20,12 @@ Library for creating animated, interactive, sonified logos from SVG spritesheets
 - Snap.SVG (svg animation)
 - grunt-svgstore (merge svg's into a single file—see above)
 - `webpack` - build the library
+
+# Demos
+- demo_1: broken..
+- demo_2: S with animation
+- demo_3: MATH SCIENCE 
+- demo_4: MATH SCIENCE plus key triggers
+- cgmm: CGMM
+    - build with `grunt --src=demo_5/img/src --dst=demo_5/img`
+    - NOTE: Illustrator file out of sync with SVG's
