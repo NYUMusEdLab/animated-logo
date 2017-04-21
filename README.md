@@ -27,5 +27,5 @@ Library for creating animated, interactive, sonified logos from SVG spritesheets
 - demo_3: MATH SCIENCE 
 - demo_4: MATH SCIENCE plus key triggers
 - cgmm: CGMM
-    - build with `grunt --src=demo_5/img/src --dst=demo_5/img`
+    - build with `grunt --src=demo/demo_5/img/src --dst=demo/demo_5/img`
     - NOTE: Illustrator file out of sync with SVG's
